@@ -279,6 +279,16 @@ func (otp *Totp) Secret() string {
 	return base32.StdEncoding.EncodeToString(otp.key)
 }
 
+func (otp *Totp) SecretPretty() string {
+	secret := base32.StdEncoding.EncodeToString(otp.key)
+
+	for i := 3; i < len(secret); i += 4 {
+		secret = secret[:i] + " " + secret[i:]
+	}
+
+	return secret
+}
+
 // URL returns a suitable URL, such as for the Google Authenticator app
 // example: otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
 func (otp *Totp) URL() (string, error) {
@@ -288,7 +298,7 @@ func (otp *Totp) URL() (string, error) {
 		return "", err
 	}
 
-	secret := base32.StdEncoding.EncodeToString(otp.key)
+	secret := otp.Secret()
 	u := url.URL{}
 	v := url.Values{}
 	u.Scheme = "otpauth"
