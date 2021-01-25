@@ -282,7 +282,7 @@ func (otp *Totp) Secret() string {
 func (otp *Totp) SecretPretty() string {
 	secret := base32.StdEncoding.EncodeToString(otp.key)
 
-	for i := 3; i < len(secret); i += 4 {
+	for i := 4; i < len(secret); i += 5 {
 		secret = secret[:i] + " " + secret[i:]
 	}
 
