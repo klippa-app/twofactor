@@ -174,7 +174,7 @@ func TestVerificationFailures(t *testing.T) {
 	}
 
 	// make sure the fields are the same after parsing the token from bytes
-	if otp.label() != restoredOtp.label() {
+	if otp.Label() != restoredOtp.Label() {
 		t.Error("Label mismatch between in memory OTP and byte parsed OTP")
 	}
 
@@ -321,7 +321,7 @@ func TestSerialization(t *testing.T) {
 		t.Error("Deserialized URL property differ from original TOTP")
 	}
 
-	if deserializedOTP.label() != otp.label() {
+	if deserializedOTP.Label() != otp.Label() {
 		t.Error("Deserialized Label property differ from original TOTP")
 	}
 
@@ -329,7 +329,7 @@ func TestSerialization(t *testing.T) {
 		t.Error("Problems encoding TOTP to base64")
 	}
 
-	label, err := url.QueryUnescape(otp.label())
+	label, err := url.QueryUnescape(otp.Label())
 	if err != nil {
 		t.Fatal(err)
 	}

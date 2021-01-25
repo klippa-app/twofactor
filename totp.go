@@ -61,7 +61,7 @@ func (otp *Totp) synchronizeCounter(offset int) {
 }
 
 // Label returns the combination of issuer:account string
-func (otp *Totp) label() string {
+func (otp *Totp) Label() string {
 	return fmt.Sprintf("%s:%s", url.QueryEscape(otp.issuer), otp.account)
 }
 
@@ -293,7 +293,7 @@ func (otp *Totp) url() (string, error) {
 	v := url.Values{}
 	u.Scheme = "otpauth"
 	u.Host = "totp"
-	u.Path = otp.label()
+	u.Path = otp.Label()
 	v.Add("secret", secret)
 	v.Add("counter", fmt.Sprintf("%d", otp.getIntCounter()))
 	v.Add("issuer", otp.issuer)
